@@ -1,0 +1,41 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+menuentry "resolute-desktop-Ubuntu"{
+        search --no-floppy --fs-uuid --set=root cf7a1a08-f075-4a6d-9e3e-e2d8a4c92918
+        set isofile="/ISO/resolute-desktop-amd64.iso"
+        loopback loop ($root)$isofile
+        linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=$isofile quiet splash
+        initrd (loop)/casper/initrd
+}
+menuentry "Fedora-Cinnamon-Live-44"{
+        search --no-floppy --fs-uuid --set=root c4c6d5e5-5611-40c8-b7c4-21ee488d7d57
+        set isofile="/ISO/Fedora-Cinnamon-Live-44-1.7.x86_64.iso"
+        loopback loop ($root)$isofile
+        probe --set=isolabel --label (loop)
+        linux (loop)/boot/x86_64/loader/linux root=live:CDLABEL=$isolabel rd.live.image iso-scan/filename=$isofile quiet splash
+        initrd (loop)/boot/x86_64/loader/initrd
+}
+menuentry "linuxmint-22.3"{
+        search --no-floppy --fs-uuid --set=root ddc6febb-fe8c-4f6d-9609-73e2b6d00b75
+        set isofile="/ISO/linuxmint-22.3-cinnamon-64bit.iso"
+        loopback loop ($root)$isofile
+        linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=$isofile quiet splash
+        initrd (loop)/casper/initrd.lz
+}
+menuentry "Debian"{
+        search --no-floppy --fs-uuid --set=root c4c6d5e5-5611-40c8-b7c4-21ee488d7d57
+        set isofile="/ISO/debian-live-13.0.0-amd64-cinnamon.iso"
+        loopback loop ($root)$isofile
+        linux (loop)/live/vmlinuz boot=live findiso=$isofile quiet splash
+        initrd (loop)/live/initrd.img
+}
+menuentry "linuxmint-lmde-7"{
+        search --no-floppy --fs-uuid --set=root c4c6d5e5-5611-40c8-b7c4-21ee488d7d57
+        set isofile="/ISO/lmde-7-cinnamon-64bit.iso"
+        loopback loop ($root)$isofile
+        linux (loop)/live/vmlinuz boot=live findiso=$isofile quiet splash
+        initrd (loop)/live/initrd.lz
+}
