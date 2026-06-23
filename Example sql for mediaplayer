@@ -1,0 +1,102 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1deb3
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Jun 23, 2026 at 08:00 PM
+-- Server version: 8.0.46-0ubuntu0.24.04.2
+-- PHP Version: 8.3.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `als`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_data`
+--
+
+CREATE TABLE `table_data` (
+  `id` int NOT NULL,
+  `title` varchar(255) NOT NULL COMMENT 'Folder name without path',
+  `path` varchar(500) NOT NULL COMMENT 'Full path to the media folder',
+  `table` varchar(100) NOT NULL COMMENT 'MySQL table name for this folder',
+  `media_type` enum('video','audio') NOT NULL DEFAULT 'video' COMMENT 'Type of media: video or audio',
+  `level` int DEFAULT '0' COMMENT 'Hierarchy level or age',
+  `comment` text COMMENT 'Additional notes or description'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `table_data`
+--
+
+INSERT INTO `table_data` (`id`, `title`, `path`, `table`, `media_type`, `level`, `comment`) VALUES
+(1, 'Top Movies', '/home/al/Movies/Video', 'movies', 'video', 1, 'General movies collection'),
+(2, 'Disney_movies', '/home/al/Movies/Disney_movies', 'disney_movies', 'video', 1, 'Disney movie collection'),
+(3, 'Horror_Movies', '/home/al/Movies/Horror_Movies', 'horror_movies', 'video', 2, 'Horror movie collection'),
+(4, 'XXX', '/home/al/Media/xxx', 'xxx', 'video', 3, 'Adult content'),
+(5, 'Musicvids', '/home/al/Media/Musicvids', 'musicvids', 'video', 2, 'Music videos'),
+(6, 'TTC Video', '/home/al/Media/TTC', 'teaching_co', 'video', 3, 'The Teaching Company courses'),
+(7, 'TV Shows', '/home/al/Media/TV_Shows', 'tv_shows', 'video', 2, 'TV show collection'),
+(8, 'James_Bond', '/home/al/Media/James_Bond', 'James_Bond', 'video', 2, 'James Bond movies'),
+(9, 'Cartoons', '/home/al/Movies/Cartoons', 'Cartoons', 'video', 1, 'Cartoon collection'),
+(10, 'DW Full Episodes', '/home/al/Media/Dr_Who_Full_Episodes', 'dr_who_full', 'video', 1, 'Doctor Who full episodes'),
+(11, 'Dr Who 2005', '/home/al/Media/Dr_Who_2005', 'dr_who_2005', 'video', 2, 'Doctor Who 2005 series'),
+(12, 'Dr Who 2023', '/home/al/Media/Dr_Who_2023', 'dr_who_2023', 'video', 2, 'Doctor Who 2023 series'),
+(13, 'Dr Who Classic', '/home/al/Media/Dr_Who_Classic', 'dr_who_classic', 'video', 2, 'Doctor Who classic series'),
+(14, 'Programming', '/home/al/Media/Programming', 'programming', 'video', 3, 'Programming tutorials'),
+(15, 'Stargate', '/home/al/Media/Stargate', 'Stargate', 'video', 2, 'Stargate series'),
+(16, 'Star Trek', '/home/al/Media/Star_Trek', 'Star_Trek', 'video', 2, 'Star Trek collection'),
+(17, 'Star Wars', '/home/al/Media/Star_Wars', 'Star_Wars', 'video', 2, 'Star Wars collection'),
+(18, 'Healthy Food', '/home/al/Media/Healthy_Food', 'HealthyFood', 'video', 1, 'Healthy food videos'),
+(19, 'Elvis_Presley_Movies', '/home/al/Movies/Elvis_Movies', 'elvis', 'video', 2, 'Elvis_Presley_Movies'),
+(20, 'Audio Audiobooks', '/home/al/Movies/Audio/Audiobooks', 'audio_audiobooks', 'audio', 2, 'audio_audiobooks'),
+(21, 'Audio CDs', '/home/al/Vault/CDs', 'audio_cds', 'audio', 2, 'audio_cds'),
+(22, 'Audio Classical', '/home/al/Vault/Classical', 'audio_classical', 'audio', 2, 'audio_classical'),
+(24, 'Audio Comedy', '/home/al/Vault/Comedy', 'audio_comedy', 'audio', 2, 'audio_comedy'),
+(25, 'Audio Instructional', '/home/al/Vault/TTC', 'audio_instructional', 'audio', 2, 'audio_instructional'),
+(26, 'Audio Motivation', '/home/al/Vault/Motivation', 'audio_motivation', 'audio', 2, 'audio_motivation'),
+(28, 'Audio Philosophy', '/home/al/Vault/Philosophy', 'audio_philosophy', 'audio', 2, 'audio_philosophy'),
+(30, 'My Fav Music', '/home/al/Media/Music', 'audio_music', 'audio', 3, 'General music collection'),
+(31, 'Religious Videos', '/home/al/Media/Religion', 'religion', 'video', 2, 'Religion Related videos'),
+(32, 'Golden Oldies', '/home/al/Movies/GoldenOldies', 'goldenoldies', 'video', 2, 'OLD Movies pre 2000'),
+(33, 'DC Comics Movies', '/home/al/Movies/DcMovies', 'dcmovies', 'video', 2, 'DC Comics Movies'),
+(34, 'Marvel Movies', '/home/al/Movies/Marvel_movies', 'marvelmovies', 'video', 2, 'Marvel Comics Movies'),
+(35, 'Science Videos', '/home/al/Media/Science', 'science', 'video', 1, 'Science Related videos'),
+(37, 'TV Shows2', '/home/al/Movies/TV2', 'tv_shows2', 'video', 2, 'TV show collection v2');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `table_data`
+--
+ALTER TABLE `table_data`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `table_data`
+--
+ALTER TABLE `table_data`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
