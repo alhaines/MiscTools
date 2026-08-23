@@ -2,16 +2,33 @@
 # filename:   /home/al/projects/config.py
 #
 """
-Configuration for mainmenu application and related services.
+# Description: Centralized configuration for all homelab nodes, mapping all services 
+#              to the central 'als' database root and supporting cross-node availability.
 """
+
+# Description: Centralized configuration for all homelab nodes, mapping all services 
+#              to the central 'als' database root and supporting cross-node availability.
 
 import os
 import pymysql
+import pymysql.cursors
 
-# Database credentials
-DB_HOST = 'localhost'
-DB_USER = 'root'
-DB_PASSWORD = 'password'
+# ==============================================================================
+# DATABASE CREDENTIALS & CENTRALIZED DEFINITION
+# change for your settings
+# ==============================================================================
+DB_USER = 'al'
+DB_PASSWORD = 'PassWord'
+DB_HOST = "192.168.12.2"
+DB_PORT = 3306
+
+# Centralized root database dictionary for all homelab apps
+db_als = {
+    'host': DB_HOST,
+    'user': DB_USER,
+    'password': DB_PASSWORD,
+    'database': 'als'
+}
 
 # Database configurations for different services
 # Main menu database (users, siteslinks, contacts, etc.)
@@ -45,21 +62,6 @@ db_blog = {
     'database': 'als'
 }
 mysql_config  = db_media
-
-# Path to external hard drive
-external_hard_drive_path = '/home/al/Media'
-
-# Path to external hard drive
-external_hard_drive_path2 = '/home/al/Movies'
-
-# Path to 4 TB external hard drive
-Movies = '/home/al/Movies'
-
-# Path to 10 TB external hard drive
-Media = '/home/al/Media'
-
-# Path to new videos
-VideoDownloader = '/home/al/Downloads/VideoDownloader'
 
 # Dynamic table_list function - loads from table_data instead of hard-coding
 def get_table_list():
@@ -133,10 +135,11 @@ def get_audio_tables():
     finally:
         if 'conn' in locals():
             conn.close()
-
+"""
 # Load table_list dynamically from database
 table_list = get_table_list()
 table_titles = get_table_titles()
 video_tables = get_video_tables()
 audio_tables = get_audio_tables()
+"""
 
