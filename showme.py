@@ -9,9 +9,19 @@
 #        fulltext, etc.) while using the simple, non-paginated rich
 #        table for dashboard-safe display.
 
-import sys
 import argparse
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import OV
+
+try:
+    from rich.console import Console
+    from rich.table import Table
+except ImportError:
+    print("FATAL: The 'rich' library is required. Please run 'pip install rich'.", file=sys.stderr)
+    sys.exit(1)
 
 try:
     from MySql import MySQL
@@ -98,7 +108,7 @@ class ShowMeApp:
             console.print(Panel(Text(content), title=f"[bold yellow]Full text for {table_name}.{column_name} (ID: {record_id})[/bold yellow]"))
         else:
             console.print(f"[red]No record found with ID: {record_id}[/red]")
-            
+
     def list_tables(self):
         tables = self.db.get_data("SHOW TABLES")
         if tables:
@@ -107,7 +117,7 @@ class ShowMeApp:
             console.print(Panel("    " + "\n    ".join(f"- {name}" for name in table_list), title="[bold yellow]Tables Found[/bold yellow]"))
         else:
             console.print("[red]No tables found.[/red]")
-            
+
     def get_last_id(self, table_name):
         query = f"SELECT MAX(id) as max_id FROM `{table_name}`"
         results = self.db.get_data(query)
@@ -115,7 +125,7 @@ class ShowMeApp:
             console.print(Panel(f"The highest ID is [bold green]{results[0]['max_id']}[/bold green]", title=f"[yellow]Last ID in {table_name}[/yellow]"))
         else:
             console.print(f"[red]Could not determine last ID for table '{table_name}'.[/red]")
-            
+
     def list_fields(self, table_name):
         schema = self.db.get_data(f"DESCRIBE `{table_name}`")
         if not schema:
@@ -133,30 +143,30 @@ def main():
     parser = argparse.ArgumentParser(description="A context-aware CLI for viewing MySQL databases.")
     parser.add_argument("database")
     subparsers = parser.add_subparsers(dest='action', required=True, help="The action to perform.")
-    
+
     # --- Correct, Full Argument Parser Definitions ---
     p_last = subparsers.add_parser('last')
     p_last.add_argument("table")
-    
+
     p_display = subparsers.add_parser('display')
     p_display.add_argument("table")
-    
+
     p_list = subparsers.add_parser('list')
-    
+
     p_lastid = subparsers.add_parser('lastid')
     p_lastid.add_argument("table")
-    
+
     p_fields = subparsers.add_parser('fields')
     p_fields.add_argument("table")
-    
+
     p_fulltext = subparsers.add_parser('fulltext')
     p_fulltext.add_argument("table")
     p_fulltext.add_argument("id")
     p_fulltext.add_argument("column")
-    
+
     args = parser.parse_args()
     app = ShowMeApp(args.database)
-    
+
     # --- Correct, Full Dispatch Logic ---
     if args.action == 'last':
         app.get_last_record(args.table)
